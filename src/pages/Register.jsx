@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 
 import { login } from "../store/userSlice";
 import API from "../services/api";
+import InputField from "../components/InputField";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -189,8 +190,6 @@ const Register = () => {
     },
   ];
 
-  console.log("what happens");
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 min-w-sm">
       <div className="bg-white py-8 px-4 mt-6 rounded-lg shadow-md w-sm md:w-[80%] lg:w-[60%]">
@@ -206,29 +205,32 @@ const Register = () => {
             const IconConfirmPassword = isConfirmPasswordHidden
               ? LuEye
               : LuEyeClosed;
+
+            const {
+              id,
+              type,
+              name,
+              label,
+              value,
+              required,
+              valid,
+              errorMessage,
+            } = inputData;
             return (
               <div
-                key={inputData.id}
+                key={id}
                 className={`mb-2 w-[90%] md:w-[47%] relative ${
                   index === 4 && "mt-22 md:mt-0"
                 }`}
               >
-                <label
-                  htmlFor={inputData.name}
-                  className="block text-gray-700 mb-2"
-                >
-                  {inputData.label}
-                </label>
-                <input
-                  type={inputData.type}
-                  id={inputData.name}
-                  name={inputData.name}
-                  value={inputData.value}
+                <InputField
+                  name={name}
+                  type={type}
+                  label={label}
+                  value={value}
+                  valid={valid}
+                  required={required}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 rounded-md border-2 outline-none ${
-                    inputData?.valid ? "border-gray-500" : "border-red-500"
-                  }`}
-                  required
                 />
                 {index === 3 && (
                   <>
@@ -264,9 +266,9 @@ const Register = () => {
                     <IconConfirmPassword className="text-xl text-gray-500" />
                   </span>
                 )}
-                {index !== 3 && !inputData.valid && (
+                {index !== 3 && !valid && (
                   <p className="text-red-500 font-semibold text-sm py-0.5 px-2 rounded-xl w-fit">
-                    {inputData.errorMessage}
+                    {errorMessage}
                   </p>
                 )}
               </div>
