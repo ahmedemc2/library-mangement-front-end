@@ -2,14 +2,18 @@ import React from "react";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Landing from "./pages/Landing/Landing";
+import Library from "./pages/Library/Library";
+
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
   return (
-    <>
-      <Landing />
-      {/* <Login /> */}
-      {/* <Register /> */}
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/library" element={<Library />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
