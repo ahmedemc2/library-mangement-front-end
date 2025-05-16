@@ -26,7 +26,7 @@ const Sidebar = () => {
   return (
     <aside className="w-64 bg-[#2d2d44] text-white p-6 hidden md:block">
       <h2 className="text-xl font-bold mb-6">
-        HOME<span className="text-blue-500">LIBRARY</span>
+        Digital<span className="text-blue-500">BOOK</span>
       </h2>
 
       <div className="mb-8">

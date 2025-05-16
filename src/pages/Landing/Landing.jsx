@@ -9,7 +9,7 @@ import PopularAuthors from "./author";
 
 const Landing = () => {
   return (
-    <div className="bg-[rgba(33,37,41,0.95)]">
+    <div className="bg-[#1e1e2f]">
       <Navbar />
       <HeroSection />
       <div className="w-[75%] m-auto ">
