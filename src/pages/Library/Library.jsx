@@ -3,9 +3,6 @@ import Sidebar from "./SideBar";
 import Header from "./Header";
 import Section from "./Section";
 import book1 from "../../assets/images/cover.jpg";
-import book2 from "../../assets/images/cover.jpg";
-import book3 from "../../assets/images/cover.jpg";
-import book4 from "../../assets/images/cover.jpg";
 
 const Library = () => {
   const books = [
@@ -22,14 +19,14 @@ const Library = () => {
       title: "Arigatou Gozaimas",
       author: "Robert Igwe",
       price: "$19.00",
-      image: book2,
+      image: book1,
     },
     {
       id: 3,
       title: "Embrace The Wild",
       author: "Rana Anderson",
       price: "$39.00",
-      image: book3,
+      image: book1,
       badge: "25% OFF",
     },
     {
@@ -37,7 +34,7 @@ const Library = () => {
       title: "Galaxy Party Here",
       author: "Kings Fonseca",
       price: "$48.00",
-      image: book4,
+      image: book1,
       badge: "HOT",
     },
   ];

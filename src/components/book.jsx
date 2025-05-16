@@ -21,7 +21,8 @@ const Book = ({ id, title, author, price, image, badge }) => {
         {/* Bouton Réserver centré */}
         <button
           className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-4 py-2 rounded opacity-0 group-hover:opacity-100 transition duration-300 z-20"
-          onClick={() => alert(`Réservation du livre "${title}"`)}>
+          onClick={() => alert(`Réservation du livre "${title}"`)}
+        >
           Réserver
         </button>
       </div>

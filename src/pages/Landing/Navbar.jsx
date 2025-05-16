@@ -4,11 +4,8 @@ import { IoMenu } from "react-icons/io5";
 const CustomButton = ({ text = "", style = "" }) => {
   return (
     <button
-      className={`px-4 py-1 rounded-md border transition duration-300 ${
-        style
-          ? style
-          : "border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
-      }`}>
+      className={`px-4 py-1 rounded-md border-2 border-blue-700 transition duration-300 cursor-pointer font-semibold ${style}`}
+    >
       {text}
     </button>
   );
@@ -38,17 +35,16 @@ const Navbar = () => {
             Contact
           </li>
         </ul>
-
-        {/* Buttons Desktop */}
         <div className="hidden md:flex gap-3">
-          <CustomButton text="Login" />
+          <CustomButton
+            text="Login"
+            style="border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white"
+          />
           <CustomButton
             text="Register"
-            style="bg-blue-600 text-white hover:bg-blue-700"
+            style="bg-blue-700 text-white hover:bg-blue-900"
           />
         </div>
-
-        {/* Hamburger Icon Mobile */}
         <div className="md:hidden">
           <IoMenu
             className="text-3xl cursor-pointer hover:text-blue-500"
@@ -61,7 +57,8 @@ const Navbar = () => {
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ${
           expand ? "max-h-64 pt-4" : "max-h-0"
-        }`}>
+        }`}
+      >
         <ul className="flex flex-col items-center gap-3 text-sm font-medium mb-4">
           <li className="hover:text-blue-500 cursor-pointer">Books</li>
           <li className="hover:text-blue-500 cursor-pointer">Authors</li>
