@@ -1,297 +1,124 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { FaCheck } from "react-icons/fa6";
-import { LuEye } from "react-icons/lu";
-import { LuEyeClosed } from "react-icons/lu";
-import { useDispatch } from "react-redux";
+import { FaUserCircle, FaArrowLeft } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-import { login } from "../store/userSlice";
-import API from "../services/api";
-import InputField from "../components/InputField";
-
-const Register = () => {
-  const dispatch = useDispatch();
-
+export default function Register() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
 
-  const [isMinCharacter, setIsMinCharacter] = useState(false);
-  const [isUppercase, setIsUppercase] = useState(false);
-  const [isSpecialCharacter, setIsSpecialCharacter] = useState(false);
-  const [isContaineNumber, setIsContainNumber] = useState(false);
-
-  const [isPasswordHidden, setIsPasswordHidden] = useState(true);
-  const [isConfirmPasswordHidden, setIsConfirmPasswordHidden] = useState(true);
-
-  const [isConfirmPassword, setIsConfirmPassword] = useState(true);
-
-  const [validFirstName, setValidFirstName] = useState(true);
-  const [validLastName, setValidLastName] = useState(true);
-  const [validEmail, setValidEmail] = useState(true);
-  const [validPassword, setValidPassword] = useState(true);
-
-  const [validData, setValidData] = useState(false);
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    switch (name) {
-      case "password":
-        setIsMinCharacter(/^.{9,}$/.test(value));
-        setIsUppercase(/[A-Z]/.test(value));
-        setIsSpecialCharacter(/[^A-Za-z0-9]/.test(value));
-        setIsContainNumber(/\d/.test(value));
-        setValidPassword(
-          (prev) =>
-            prev &&
-            isMinCharacter &&
-            isUppercase &&
-            isSpecialCharacter &&
-            isContaineNumber
-        );
-        break;
-      case "confirmPassword":
-        setIsConfirmPassword(
-          () => formData.password === formData.confirmPassword
-        );
-        break;
-
-      case "firstName":
-        setValidFirstName(/^[A-Za-z ]{2,50}$/.test(value));
-        break;
-
-      case "lastName":
-        setValidLastName(/^[A-Za-z ]{2,50}$/.test(value));
-        break;
-
-      case "email":
-        setValidEmail(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value));
-        break;
-    }
-
-    setValidData(
-      validFirstName &&
-        validLastName &&
-        validEmail &&
-        validPassword &&
-        isConfirmPassword
-    );
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { firstName, lastName, email, password } = formData;
-    const cleanFormData = {
-      name: firstName.trim() + " " + lastName.trim(),
-      email: email.trim(),
-      password: password,
-    };
-    try {
-      const response = await API.post("/users", cleanFormData);
 
-      if (response.status === 201) {
-        const { user, token } = response.data.data;
-        dispatch(login({ user, token }));
-      }
-
-      //! Don't Forget To redirect when the registration is okay
-    } catch (err) {
-      alert(err.response?.data?.message || "Registration failed");
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
     }
-  };
 
-  const inputsData = [
-    {
-      id: "InputFieldN-1Z",
-      type: "text",
-      name: "firstName",
-      label: "First Name",
-      value: formData.firstName,
-      required: true,
-      valid: validFirstName,
-      errorMessage:
-        "Please Enter a valid First Name, it should only containe Alphabetic characters",
-    },
-    {
-      id: "InputFieldN-2Z",
-      type: "text",
-      name: "lastName",
-      label: "Last Name",
-      value: formData.lastName,
-      required: true,
-      valid: validLastName,
-      errorMessage:
-        "Please Enter a valid Last Name, it should only containe Alphabetic characters",
-    },
-    {
-      id: "InputFieldN-3Z",
-      type: "email",
-      name: "email",
-      label: "Email",
-      value: formData.email,
-      required: true,
-      valid: validEmail,
-      errorMessage:
-        "Please Enter a valid Email, For example: example@domain.com",
-    },
-    {
-      id: "InputFieldN-4Z",
-      type: isPasswordHidden ? "text" : "password",
-      name: "password",
-      label: "Password",
-      value: formData.password,
-      required: true,
-      valid:
-        validPassword ||
-        (isMinCharacter &&
-          isUppercase &&
-          isSpecialCharacter &&
-          isContaineNumber),
-    },
-    {
-      id: "InputFieldN-5Z",
-      type: isConfirmPasswordHidden ? "text" : "password",
-      name: "confirmPassword",
-      label: "Confirm Password",
-      value: formData.confirmPassword,
-      required: true,
-      valid:
-        formData.confirmPassword.length === 0 ||
-        formData.confirmPassword === formData.password,
-      errorMessage:
-        "Your password don't match. Please enter your password again to confirm it.",
-    },
-  ];
-  const passwordVerification = [
-    {
-      id: "Verification-N1MN",
-      text: "Minimum 8 characters",
-      valid: isMinCharacter,
-    },
-    { id: "passVerification-2Br", text: "1 uppercase", valid: isUppercase },
-    {
-      id: "Verification-N2MN",
-      text: "Atleast 1 special character",
-      valid: isSpecialCharacter,
-    },
-    {
-      id: "Verification-N3MN",
-      text: "Atleast 1 number",
-      valid: isContaineNumber,
-    },
-  ];
+    console.log("User Registered:", formData);
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 min-w-sm">
-      <div className="bg-white py-8 px-4 mt-6 rounded-lg shadow-md w-sm md:w-[80%] lg:w-[60%]">
-        <h2 className="text-xl md:text-2xl font-bold mb-6 text-center">
-          Library Management Register
-        </h2>
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-row flex-wrap gap-3 justify-center md:justify-start"
-        >
-          {inputsData.map((inputData, index) => {
-            const IconPasword = isPasswordHidden ? LuEye : LuEyeClosed;
-            const IconConfirmPassword = isConfirmPasswordHidden
-              ? LuEye
-              : LuEyeClosed;
+    <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center px-4 relative">
+      {/* Flèche retour */}
+      <Link
+        to="/"
+        className="absolute top-6 left-6 text-gray-400 hover:text-white text-xl transition">
+        <FaArrowLeft />
+      </Link>
 
-            const {
-              id,
-              type,
-              name,
-              label,
-              value,
-              required,
-              valid,
-              errorMessage,
-            } = inputData;
-            return (
-              <div
-                key={id}
-                className={`mb-2 w-[90%] md:w-[47%] relative ${
-                  index === 4 && "mt-22 md:mt-0"
-                }`}
-              >
-                <InputField
-                  name={name}
-                  type={type}
-                  label={label}
-                  value={value}
-                  valid={valid}
-                  required={required}
-                  onChange={handleChange}
-                />
-                {index === 3 && (
-                  <>
-                    <span
-                      onClick={() => setIsPasswordHidden((prev) => !prev)}
-                      className="select-none absolute w-8 top-10 right-1 aspect-square flex justify-center items-center hover:bg-gray-200 rounded-full cursor-pointer"
-                    >
-                      <IconPasword className="text-xl text-gray-500" />
-                    </span>
-                    <div className="absolute w-full top-20 flex flex-wrap gap-x-4 gap-y-2.5">
-                      {passwordVerification.map((verification) => {
-                        return (
-                          <p
-                            key={verification.id}
-                            className={`${
-                              verification.valid
-                                ? "bg-green-100 text-green-500"
-                                : "bg-gray-200 text-gray-500"
-                            }  font-semibold text-sm py-0.5 px-2 rounded-xl flex justify-center items-center gap-1.5`}
-                          >
-                            <FaCheck size={10} /> {verification.text}
-                          </p>
-                        );
-                      })}
-                    </div>
-                  </>
-                )}
-                {index === 4 && (
-                  <span
-                    onClick={() => setIsConfirmPasswordHidden((prev) => !prev)}
-                    className="select-none absolute w-8 top-10 right-1 aspect-square flex justify-center items-center hover:bg-gray-200 rounded-full cursor-pointer"
-                  >
-                    <IconConfirmPassword className="text-xl text-gray-500" />
-                  </span>
-                )}
-                {index !== 3 && !valid && (
-                  <p className="text-red-500 font-semibold text-sm py-0.5 px-2 rounded-xl w-fit">
-                    {errorMessage}
-                  </p>
-                )}
-              </div>
-            );
-          })}
-          <div className="w-[90%] md:w-full flex mt-10 justify-center">
-            <button
-              type="submit"
-              className="bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300 w-full md:w-[48%] cursor-pointer "
-            >
-              Register
-            </button>
+      <div className="w-full max-w-md bg-gray-800 bg-opacity-90 backdrop-blur-md border border-gray-700 rounded-xl shadow-lg p-6">
+        <div className="flex flex-col items-center mb-6">
+          <FaUserCircle className="text-6xl text-gray-400 mb-2" />
+          <h2 className="text-2xl font-semibold">Sign Up</h2>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label htmlFor="name" className="block text-sm text-gray-300 mb-1">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
           </div>
+
+          <div>
+            <label htmlFor="email" className="block text-sm text-gray-300 mb-1">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm text-gray-300 mb-1">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="confirmPassword"
+              className="block text-sm text-gray-300 mb-1">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              required
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded transition">
+            Create Account
+          </button>
         </form>
-        <p className="mt-4 text-center">
+
+        <p className="mt-6 text-center text-sm text-gray-400">
           Already have an account?
-          <a href="/login" className="text-blue-500 ml-1 hover:underline">
-            Login
-          </a>
+          <Link to="/login" className="ml-1 text-blue-400 hover:underline">
+            Sign in
+          </Link>
         </p>
       </div>
     </div>
   );
-};
-
-export default Register;
+}

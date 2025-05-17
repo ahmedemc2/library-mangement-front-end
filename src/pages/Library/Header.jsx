@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { FaBell, FaPlus, FaUserCircle } from "react-icons/fa";
+import { FaTimes, FaBell, FaPlus, FaUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const reservedBooks = [
   { id: 1, title: "Read Freely", author: "Fatima Souad" },
@@ -46,7 +47,6 @@ const Header = () => {
         placeholder="Search"
         className="bg-[#2c2c3d] text-white px-4 py-2 rounded w-1/2 outline-none"
       />
-
       <div className="flex items-center gap-4">
         {/* Icône de notifications */}
         <button
@@ -74,72 +74,79 @@ const Header = () => {
           <span className="hidden md:inline">Jessica Chastain</span>
         </button>
       </div>
-
       {/* CARD: Notifications */}
+
       {showNotifications && (
-        <div className="absolute right-0 top-20 w-80 bg-white text-gray-800 shadow-lg rounded-lg p-4 z-50">
+        <div className="absolute right-0 top-20 w-80 bg-gray-800 bg-opacity-80 text-white shadow-lg rounded-lg p-4 z-50 backdrop-blur-md">
           <div className="flex justify-between items-center mb-3">
             <h3 className="font-semibold text-lg">Notifications Récentes</h3>
             <button
-              className="text-red-500 font-bold"
+              className="text-red-400 hover:text-red-600 transition-colors duration-300 p-1 rounded-full hover:bg-red-100/20"
               onClick={() => setShowNotifications(false)}>
-              ❌
+              <FaTimes className="w-5 h-5" />
             </button>
           </div>
           <ul className="space-y-3">
             {notifications.map((notif) => (
-              <li key={notif.id} className="border-b pb-2">
+              <li key={notif.id} className="border-b border-gray-600 pb-2">
                 <p className="text-sm">{notif.message}</p>
-                <span className="text-xs text-gray-500">{notif.date}</span>
+                <span className="text-xs text-gray-400">{notif.date}</span>
               </li>
             ))}
           </ul>
+          <button className="px-4 py-2 bg-gray-800 text-blue-400 rounded-full hover:bg-gray-700 transition-colors duration-300 shadow-sm">
+            DITAILS
+          </button>
         </div>
       )}
 
       {/* CARD: Réservations */}
+
       {showReservations && (
-        <div className="absolute right-0 top-20 w-80 bg-white text-gray-800 shadow-lg rounded-lg p-4 z-50">
+        <div className="absolute right-0 top-20 w-80 bg-gray-800 bg-opacity-80 text-white shadow-lg rounded-lg p-4 z-50 backdrop-blur-md">
           <div className="flex justify-between items-center mb-3">
             <h3 className="font-semibold text-lg">Livres Réservés</h3>
             <button
-              className="text-red-500 font-bold"
+              className="text-red-400 hover:text-red-600 transition-colors duration-300 p-1 rounded-full hover:bg-red-100/20"
               onClick={() => setShowReservations(false)}>
-              ❌
+              <FaTimes className="w-5 h-5" />
             </button>
           </div>
           <ul className="space-y-2">
             {reservedBooks.map((book) => (
-              <li key={book.id} className="border-b pb-2">
-                <p className="font-medium">{book.title}</p>
-                <p className="text-sm text-gray-600">par {book.author}</p>
+              <li key={book.id} className="border-b border-gray-600 pb-2">
+                <p className="font-medium text-white">{book.title}</p>
+                <p className="text-sm text-gray-300">par {book.author}</p>
               </li>
             ))}
           </ul>
+          <button className="px-4 py-2 bg-gray-800 text-blue-400 rounded-full hover:bg-gray-700 transition-colors duration-300 shadow-sm">
+            DETAILS
+          </button>
         </div>
       )}
 
       {/* CARD: Menu utilisateur */}
       {showUserMenu && (
-        <div className="absolute right-0 top-20 w-64 bg-white text-gray-800 shadow-lg rounded-lg p-4 z-50">
+        <div className="absolute right-0 top-20 w-64 bg-gray-800 bg-opacity-80 text-white shadow-lg rounded-lg p-4 z-50 backdrop-blur-md">
           <div className="flex justify-between items-center mb-3">
             <h3 className="font-semibold text-lg">Mon Compte</h3>
             <button
-              className="text-red-500 font-bold"
+              className="text-red-400 hover:text-red-600 transition-colors duration-300 p-1 rounded-full hover:bg-red-100/20"
               onClick={() => setShowUserMenu(false)}>
-              ❌
+              <FaTimes className="w-5 h-5" />
             </button>
           </div>
           <div className="text-center mb-4">
-            <FaUserCircle className="text-4xl mx-auto mb-2 text-gray-600" />
+            <FaUserCircle className="text-4xl mx-auto mb-2 text-gray-300" />
             <p className="font-medium">Jessica Chastain</p>
-            <p className="text-sm text-gray-500">jessica@email.com</p>
+            <p className="text-sm text-gray-400">jessica@email.com</p>
           </div>
           <div className="flex flex-col gap-2">
-            <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-300">
               Voir mon compte
             </button>
-            <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded">
+            <button className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded transition duration-300">
               Se déconnecter
             </button>
           </div>
