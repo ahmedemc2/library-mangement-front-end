@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { IoMenu } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
-const CustomButton = ({ text = "", style = "" }) => {
+const CustomButton = ({ text = "", style = "", onClick }) => {
   return (
     <button
+      onClick={onClick}
       className={`px-4 py-1 rounded-md border-2 border-blue-700 transition duration-300 cursor-pointer font-semibold ${style}`}>
       {text}
     </button>
@@ -12,6 +14,7 @@ const CustomButton = ({ text = "", style = "" }) => {
 
 const Navbar = () => {
   const [expand, setExpand] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-white/5 backdrop-blur-md text-white px-6 py-4 shadow-sm">
@@ -36,16 +39,22 @@ const Navbar = () => {
             Contact
           </li>
         </ul>
+
+        {/* Buttons Desktop */}
         <div className="hidden md:flex gap-3">
           <CustomButton
             text="Login"
             style="border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white"
+            onClick={() => navigate("/login")}
           />
           <CustomButton
             text="Register"
             style="bg-blue-700 text-white hover:bg-blue-900"
+            onClick={() => navigate("/register")}
           />
         </div>
+
+        {/* Menu Mobile */}
         <div className="md:hidden">
           <IoMenu
             className="text-3xl cursor-pointer hover:text-blue-500"
@@ -66,10 +75,21 @@ const Navbar = () => {
           <li className="hover:text-blue-500 cursor-pointer">Contact</li>
         </ul>
         <div className="flex justify-center gap-3">
-          <CustomButton text="Login" />
+          <CustomButton
+            text="Login"
+            style="border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white"
+            onClick={() => {
+              navigate("/login");
+              setExpand(false);
+            }}
+          />
           <CustomButton
             text="Register"
             style="bg-blue-600 text-white hover:bg-blue-700"
+            onClick={() => {
+              navigate("/register");
+              setExpand(false);
+            }}
           />
         </div>
       </div>

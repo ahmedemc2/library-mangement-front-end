@@ -21,7 +21,7 @@ const AccountPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white py-10 px-6">
+    <div className="min-h-screen  text-white py-10 px-6">
       <div className="max-w-lg mx-auto bg-gray-800 bg-opacity-90 backdrop-blur-md border border-gray-700 rounded-xl shadow-lg p-6">
         <div className="flex flex-col items-center mb-6">
           <FaUserCircle className="text-6xl text-gray-400 mb-2" />
