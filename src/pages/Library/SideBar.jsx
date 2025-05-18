@@ -24,7 +24,7 @@ const writers = [
 
 const Sidebar = () => {
   return (
-    <aside className="w-64 bg-[#2d2d44] text-white p-6 hidden md:block">
+    <aside className="bg-[#2d2d44] text-white p-6 hidden md:block fixed min-h-screen w-[20%]">
       <h2 className="text-xl font-bold mb-6">
         Digital<span className="text-blue-500">BOOK</span>
       </h2>
@@ -37,7 +37,8 @@ const Sidebar = () => {
               key={i}
               className={`hover:text-blue-600 cursor-pointer ${
                 i === genres.length - 1 && "text-blue-500"
-              }`}>
+              }`}
+            >
               {genre}
             </li>
           ))}
@@ -50,7 +51,8 @@ const Sidebar = () => {
           {writers.map((writer, i) => (
             <li
               key={i}
-              className="flex items-center gap-2 hover:text-blue-500 cursor-pointer">
+              className="flex items-center gap-2 hover:text-blue-500 cursor-pointer"
+            >
               <FaUserCircle /> {writer.name}
             </li>
           ))}

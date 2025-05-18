@@ -8,23 +8,23 @@ import EditBook from "./pages/Admin/EditBook";
 import AddBook from "./pages/Admin/AddBook";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Dashboard from "./pages/Dashboard/Dashboard";
+import Navbar from "./pages/Landing/Navbar";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/app/*" element={<Library />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/editbook" element={<EditBook />} />
-        <Route path="/addbook" element={<AddBook />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </BrowserRouter>
+    <main className="bg-[#1e1e2f] h-screen">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/app/*" element={<Library />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/editbook" element={<EditBook />} />
+          <Route path="/addbook" element={<AddBook />} />
+        </Routes>
+      </BrowserRouter>
+    </main>
   );
 };
 

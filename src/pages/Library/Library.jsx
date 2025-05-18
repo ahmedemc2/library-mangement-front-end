@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebar from "./SideBar";
-import Header from "./Header";
+// import Header from "./Header";
 import Main from "./MainContent";
 import NotificationsPage from "./Notification";
 import ReservationsPage from "./reservation";
@@ -10,10 +10,9 @@ import { Routes, Route } from "react-router-dom";
 
 const Library = () => {
   return (
-    <div className="flex bg-[#1e1e2f] min-h-screen">
+    <div className="flex bg-[#1e1e2f]">
       <Sidebar />
-      <main className="flex-1 px-6">
-        <Header />
+      <main className="px-6 flex-col w-[80%] ms-[20%] pt-20">
         <Routes>
           <Route path="/books" element={<Main />} />
           <Route path="/noti" element={<NotificationsPage />} />

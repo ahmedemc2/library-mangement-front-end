@@ -1,46 +1,53 @@
-import book1 from "../../assets/images/cover.jpg";
+import { useEffect, useState } from "react";
 import Section from "./Section";
+import API from "../../services/api";
+import Header from "./Header";
 
 const Main = () => {
-  const books = [
-    {
-      id: 1,
-      title: "Read Freely",
-      author: "Fatima Souad",
-      price: "$45.00",
-      image: book1,
-      badge: "HOT",
-    },
-    {
-      id: 2,
-      title: "Arigatou Gozaimas",
-      author: "Robert Igwe",
-      price: "$19.00",
-      image: book1,
-    },
-    {
-      id: 3,
-      title: "Embrace The Wild",
-      author: "Rana Anderson",
-      price: "$39.00",
-      image: book1,
-      badge: "25% OFF",
-    },
-    {
-      id: 4,
-      title: "Galaxy Party Here",
-      author: "Kings Fonseca",
-      price: "$48.00",
-      image: book1,
-      badge: "HOT",
-    },
-  ];
+  const [books, setBooks] = useState([]);
+
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const getBooks = async () => {
+      try {
+        const response = await API.get("/books");
+        setBooks(response.data.data.data);
+        console.log(response.data.data.data);
+      } catch (error) {
+        console.error("Error Getting Books", error);
+      }
+    };
+    getBooks();
+  }, []);
+
+  useEffect(() => {
+    const searchBooks = async (search) => {
+      try {
+        const response = await API.get(`/books/search?q=${search}`);
+
+        console.log(response.data.data.data);
+        setBooks(response.data.data.data);
+      } catch (error) {
+        console.error("Error Getting Books", error);
+      }
+    };
+    console.log(search);
+    searchBooks(search);
+  }, [search]);
 
   return (
-    <>
-      <Section title="Most Popular" books={books} />
-      <Section title="Recommended" books={books} />
-    </>
+    <div className="relative">
+      <Header search={search} onSearching={setSearch} />
+      {search.length > 0 ? (
+        <Section title={search} books={books} />
+      ) : (
+        <>
+          <Section title="Most Popular" books={books.slice(0, 5)} />
+          <Section title="Recommended" books={books.slice(0, 5)} />
+        </>
+      )}
+    </div>
   );
 };
 export default Main;
