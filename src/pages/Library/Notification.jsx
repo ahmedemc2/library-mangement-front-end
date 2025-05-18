@@ -21,7 +21,7 @@ const NotificationsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white py-10 px-6">
+    <div className="min-h-screen  text-white py-10 px-6">
       <div className="max-w-2xl mx-auto bg-gray-800 bg-opacity-90 backdrop-blur-md border border-gray-700 rounded-xl shadow-lg p-6">
         <h2 className="text-2xl font-semibold mb-6">
           🔔 Notifications Récentes

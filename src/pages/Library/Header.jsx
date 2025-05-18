@@ -18,6 +18,8 @@ const notifications = [
 ];
 
 const Header = () => {
+  const navigate = useNavigate();
+
   const [showReservations, setShowReservations] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -94,7 +96,9 @@ const Header = () => {
               </li>
             ))}
           </ul>
-          <button className="px-4 py-2 bg-gray-800 text-blue-400 rounded-full hover:bg-gray-700 transition-colors duration-300 shadow-sm">
+          <button
+            className="px-4 py-2 bg-gray-800 text-blue-400 rounded-full hover:bg-gray-700 transition-colors duration-300 shadow-sm"
+            onClick={() => navigate("/app/noti")}>
             DITAILS
           </button>
         </div>
@@ -120,7 +124,9 @@ const Header = () => {
               </li>
             ))}
           </ul>
-          <button className="px-4 py-2 bg-gray-800 text-blue-400 rounded-full hover:bg-gray-700 transition-colors duration-300 shadow-sm">
+          <button
+            className="px-4 py-2 bg-gray-800 text-blue-400 rounded-full hover:bg-gray-700 transition-colors duration-300 shadow-sm"
+            onClick={() => navigate("/app/res")}>
             DETAILS
           </button>
         </div>
@@ -143,7 +149,9 @@ const Header = () => {
             <p className="text-sm text-gray-400">jessica@email.com</p>
           </div>
           <div className="flex flex-col gap-2">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-300">
+            <button
+              className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-300"
+              onClick={() => navigate("/app/account")}>
               Voir mon compte
             </button>
             <button className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded transition duration-300">
